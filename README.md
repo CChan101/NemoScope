@@ -1,5 +1,8 @@
 ### Smart-Wallet-Tracking ###
-The goal of this software is to make surface level blockchain analysis accessible in terms of hardware requirements and ease of validation. It builds a bare bones database containing condensed transaction level information about script clusters (entities) on the blockchain. It normalizes standard scripts as equivalent to the lowest level script capable of deriving them and allows for the assumption of shared multisig ownership. Its hyperfocus, although limiting, allows for transaction information to be condensed to increase speed and allow for accessibility - a common spend clustering graph of all blockchain transacitons up to block 800,000 is only 17 GB. Parallel support and cluster computing is convenient as easily maintainable through ray integration. Traditional libraries are optimized for people who have computational resources, are highly generalizable (extra work to tailor), and often fail to normalize standard scripts.  
+The goal of this software is to make surface level blockchain analysis accessible in terms of hardware requirements and ease of validation. It is optimized for low-resource machines and builds a bare bones database containing simplified transaction data for faster 
+analysis about groups of bitcoins likely owned by the same user. The tool treats equivalent Bitcoin addresses as belonging to the same source, even if they use different formats (e.g., legacy, SegWit, or Taproot). Its hyperfocus, although limiting, allows for 
+transaction information to be condensed to increase speed and allow for accessibility - a common spend clustering graph of all blockchain transacitons up to block 800,000 is only 17 GB. The library supports parallel processing to speed up analysis on large datasets.
+If you’re working with a powerful machine or a computing cluster, you can enable multi-core processing using Ray with minimal setup. Traditional libraries are optimized for people who have computational resources, are highly generalizable (extra work to tailor), and often fail to treat different address formats from the same key as equivalent.  
 ### Dependencies ###
 - psycopg2
 - ray
@@ -11,14 +14,9 @@ The goal of this software is to make surface level blockchain analysis accessibl
 - os
 - Bitcoin Core v29
 - PostgreSQL v17
-### Assumptions ###
-- The last object in vin_asms and witness data is the revealed public key for single key scripts. This is valid as of 5/10/2025 in Bitcoin core.
-## Future Needs ##
-- Deanonymization for taproot scripts. Using revealed taproot public keys, along with common scripts, to generate script path spend addresses for normalization.
-- Dynamic memory tuning for memory constrained systems
-- More seamless user interface
-- Support for pruned node rather than full would expand to users with less storage.
-- Further common spend clustering for legacy multisig can be achieved by identifying which keys produced the signatures in the redeem script, mapping them to the same script id, and isolating the others.
+## What things do ##
+create_tables.sql: Creates the table and schema for the database
+derivedUndefinedAddresses: Derived bitcoin addresses from public keys
 ### Using the Library ###
 1.) Download the blockchain with a Bitcoin Core full node and populate a postgreSQL database with that data using extract_bitcoin_data_beta.py. Please follow the steps in the extract_bitcoin_data_beta README to do so. This portion requires ~700GB of storage for a full node, but that can be red
 Run it in the command prompt with:
