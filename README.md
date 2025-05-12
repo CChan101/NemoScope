@@ -19,6 +19,7 @@ If you’re working with a powerful machine or a computing cluster, you can enab
 - derivedUndefinedAddresses: Derived bitcoin addresses from public keys
 - extract_bitcoin_data_beta.py: Extract detailed transaction data from a Bitcoin node via its RPC (Remote Procedure Call) and save the data as a CSV file
 - populate_database.py: Automates several Bitcoin blockchain data processes such as deriving missing addresses from public keys, recovering revealed public keys from transaction inputs, normalizing address hashes, and clustering addresses using the common spend heuristic to identify entities controlling multiple addresses.
+- txn_parsing.py: Parses bitcoin transaction scripts and descriptor to extract addresses and public keys
 ### Using the Library ###
 1.) Download the blockchain with a Bitcoin Core full node and populate a postgreSQL database with that data using extract_bitcoin_data_beta.py. Please follow the steps in the extract_bitcoin_data_beta README to do so. This portion requires ~700GB of storage for a full node, but that can be red
 Run it in the command prompt with:
